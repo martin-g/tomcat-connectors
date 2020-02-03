@@ -14,8 +14,7 @@
 # limitations under the License.
 
 dist: bionic
-language: java
-jdk: oraclejdk8
+compiler: gcc
 arch: arm64
 
 addons:
@@ -30,7 +29,7 @@ addons:
         - git
         - libtool-bin
 
-install:
+before_script:
     - rm -rf $HOME/tmp
     - mkdir $HOME/tmp
     - export CURR_PWD=`pwd`
@@ -59,14 +58,14 @@ install:
 script:
     - echo "Going to build Tomcat Connectors"
     - cd $CURR_PWD
+    - ls -la
     - ./buildconf.sh
     - ./configure --with-apxs=$HOME/tmp/httpd-build/bin/apxs --prefix=$HOME/tmp/tc-connectors-build
     - make
     - make install
 
 after_failure:
-    - tail -n 5000 ant-test.log
-    - ls -laR $HOME/tmp
+    - ls -la $HOME/tmp
 
 notifications:
     email:

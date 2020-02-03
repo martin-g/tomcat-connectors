@@ -58,7 +58,7 @@ before_script:
 script:
     - echo "Going to build Tomcat Connectors"
     - cd $CURR_PWD
-    - ls -la
+    - cd native
     - ./buildconf.sh
     - ./configure --with-apxs=$HOME/tmp/httpd-build/bin/apxs --prefix=$HOME/tmp/tc-connectors-build
     - make
